@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.endpoints import question
+from app.api.endpoints import question, stats
 
 app = FastAPI(
     title="LeetCode API Wrapper",
@@ -8,3 +8,4 @@ app = FastAPI(
 )
 
 app.include_router(question.router, prefix="/api", tags=["questions"])
+app.include_router(stats.router, prefix="/api", tags=["stats"])
