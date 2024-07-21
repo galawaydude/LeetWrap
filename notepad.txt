@@ -1,0 +1,36 @@
+mkdir -p app/api/endpoints app/core app/schemas 
+
+touch app/__init__.py
+touch app/main.py
+touch app/api/__init__.py
+touch app/api/endpoints/__init__.py
+touch app/api/endpoints/question.py
+touch app/core/__init__.py
+touch app/core/config.py
+touch app/core/graphql_client.py
+touch app/schemas/__init__.py
+touch app/schemas/question.py
+
+
+
+
+│
+├── app/
+│   ├── __init__.py
+│   ├── main.py
+│   │+zA    
+│   ├── api/
+│   │   ├── __init__.py
+│   │   └── endpoints/
+│   │       ├── __init__.py
+│   │       └── question.py
+│   │
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── config.py
+│   │   └── graphql_client.py
+│   │
+│   ├── schemas/
+│   │   ├── __init__.py
+│   │   └── question.py
+│   │
