@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.core.graphqlClient import execute_query
+from app.core.graphqlClient import executeQuery
 from app.schemas.question import QuestionRequest, QuestionResponse, SimilarQuestionsResponse
 
 router = APIRouter()
@@ -35,23 +35,23 @@ query SimilarQuestions($titleSlug: String!) {
 """
 
 @router.post("/question", response_model=QuestionResponse)
-async def get_question(request: QuestionRequest):
+async def getQuestion(request: QuestionRequest):
     variables = {"titleSlug": request.titleSlug}
-    result = await execute_query(QUESTION_QUERY, variables)
+    result = await executeQuery(QUESTION_QUERY, variables)
     
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    question_data = result["data"]["question"]
-    return QuestionResponse(**question_data)
+    questionData = result["data"]["question"]
+    return QuestionResponse(**questionData)
 
-@router.post("/similar-questions", response_model=SimilarQuestionsResponse)
-async def get_similar_questions(request: QuestionRequest):
+@router.post("/similarQuestions", response_model=SimilarQuestionsResponse)
+async def getSimilarQuestions(request: QuestionRequest):
     variables = {"titleSlug": request.titleSlug}
-    result = await execute_query(SIMILAR_QUESTIONS_QUERY, variables)
+    result = await executeQuery(SIMILAR_QUESTIONS_QUERY, variables)
     
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    similar_questions_data = result["data"]["question"]
-    return SimilarQuestionsResponse(**similar_questions_data)
+    payload = result["data"]["question"]
+    return SimilarQuestionsResponse(**payload)

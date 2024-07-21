@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.core.graphqlClient import execute_query
+from app.core.graphqlClient import executeQuery
 from app.schemas.submission_list import SubmissionListRequest, SubmissionListResponse
 
 router = APIRouter()
@@ -31,8 +31,8 @@ query questionSubmissionList($questionSlug: String!, $limit: Int!, $offset: Int!
 }
 """
 
-@router.post("/submission-list", response_model=SubmissionListResponse)
-async def get_submission_list(request: SubmissionListRequest):
+@router.post("/submissionList", response_model=SubmissionListResponse)
+async def getSubmissionList(request: SubmissionListRequest):
     variables = {
         "questionSlug": request.questionSlug,
         "limit": request.limit,
@@ -45,10 +45,10 @@ async def get_submission_list(request: SubmissionListRequest):
         "X-Requested-With": "XMLHttpRequest"
     }
     
-    result = await execute_query(SUBMISSION_LIST_QUERY, variables, custom_headers=headers)
+    result = await executeQuery(SUBMISSION_LIST_QUERY, variables, customHeaders=headers)
     
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    submission_list_data = result["data"]["questionSubmissionList"]
-    return SubmissionListResponse(**submission_list_data)
+    payload = result["data"]["questionSubmissionList"]
+    return SubmissionListResponse(**payload)

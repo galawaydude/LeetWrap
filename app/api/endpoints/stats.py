@@ -1,5 +1,5 @@
 from fastapi import APIRouter, HTTPException
-from app.core.graphqlClient import execute_query
+from app.core.graphqlClient import executeQuery
 from app.schemas.stats import StatsRequest, StatsResponse
 
 router = APIRouter()
@@ -13,13 +13,13 @@ query questionStats($titleSlug: String!) {
 """
 
 @router.post("/stats", response_model=StatsResponse)
-async def get_question_stats(request: StatsRequest):
+async def getQuestionStats(request: StatsRequest):
     variables = {"titleSlug": request.titleSlug}
     
-    result = await execute_query(STATS_QUERY, variables)
+    result = await executeQuery(STATS_QUERY, variables)
     
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    stats_data = result["data"]["question"]
-    return StatsResponse(**stats_data)
+    payload = result["data"]["question"]
+    return StatsResponse(**payload)

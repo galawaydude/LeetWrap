@@ -11,7 +11,7 @@ class Submission(BaseModel):
     runtime: str
     memory: str
     timestamp: int
-    status: Union[str, int]
+    status: int
     statusDisplay: str
     lang: str
     langName: str
