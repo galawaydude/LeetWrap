@@ -68,3 +68,6 @@ in the submission list, check if you can make the limit, and offset default
 
 note: do this as soon as possible
 check how to decrease your schema, and how to decrease the number of code you write
+
+
+check if i can make a base model for the common imports, make the code more readable
