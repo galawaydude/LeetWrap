@@ -17,6 +17,7 @@ query recentAcSubmissions($username: String!, $limit: Int!) {
 
 @router.post("/recentAc", response_model=recentAcResponse)
 async def getRecentAc(request: recentAcRequest):
+    print("Shit")
     variables = {
         "username": request.username, 
         "limit": request.limit

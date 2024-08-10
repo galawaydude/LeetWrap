@@ -38,14 +38,6 @@ touch app/schemas/question.py
 
 classification of the api calls into stuff
 the api endpoints i have
-
-1) indiquestionInfo: this gives information regarding one question(that is passed as an json request)
-2) similarQuestions: this gives similar questions to that thing, you gives
-3) getStreakCounter: (this is an authenticated request, it gives your dail question information, basically streak)
-4) questionHints: this gives the hints, for a particulr question
-5) QOTD: sel explanatory
-6) userFavorites: This basically gives the lists you created or forked
-7) panelQuestionList: (This is an authenticated request) gives the panel list, along with the information like did you complete it or some shit(asks, for additional operations, like all the questions you completed)
 8) randomPanelQuestion: sel explanatory
 9) question stats: this gives the stats of a questions, like number of likes, and acs and other stuff
 10)this gets the code: (this is an authenticated request): this gives the code and other information, from the submission id

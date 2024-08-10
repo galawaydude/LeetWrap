@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from app.api.endpoints import language, question, stats, submission_list, recentAcs
+from app.api.endpoints import language, question, stats, submission_list, recentAcs, QOTD, getStreakCounter, getQuestionHints, userFavorites, panelQuestionList
 
 app = FastAPI(
     title="LeetCode API Wrapper",
@@ -81,3 +81,8 @@ app.include_router(stats.router, prefix="/api", tags=["stats"])
 app.include_router(submission_list.router, prefix="/api", tags=["submissions"])
 app.include_router(language.router, prefix="/api", tags=["languages"])
 app.include_router(recentAcs.router, prefix="/api", tags=["recentAcList"])
+app.include_router(QOTD.router, prefix="/api", tags=['QOTD'])
+app.include_router(getStreakCounter.router, prefix="/api", tags=["getStreak"])
+app.include_router(getQuestionHints.router, prefix="/api", tags=["QuestionHints"])
+app.include_router(userFavorites.router, prefix="/api", tags=["Userfavorites"])
+app.include_router(panelQuestionList.router, prefix="/api", tags=["PanelQuestionList"])
