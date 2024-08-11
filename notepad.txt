@@ -38,18 +38,17 @@ touch app/schemas/question.py
 
 classification of the api calls into stuff
 the api endpoints i have
-8) randomPanelQuestion: sel explanatory
-9) question stats: this gives the stats of a questions, like number of likes, and acs and other stuff
-10)this gets the code: (this is an authenticated request): this gives the code and other information, from the submission id
-11) community solution: this gets one community solition dor a topic id
-12) questionNote: (authorized)( this gets the note for a particular question if you wrote it)
-13) problem questionList: this is similar, to the panelQuestionList
-14) languageList: this gets all the language, alson with their id(imp)
-15) submission details, this is similar to the thing, this gets code
-16) userQuestionstatus: (a) tells if a questions is completed or not(and other shit)
-17) user session progress(authenticated) gives the pichart thing, with other information
+8) randomPanelQuestion: sel explanatory(Do this later, i still am not sure, how this shit works)
+9) question stats: this gives the stats of a questions, like number of likes, and acs and other stuff(done)
+10)this gets the code: (this is an authenticated request): this gives the code and other information, from the submission id(this gets other shit also, have to look at that)
+12) questionNote: (authorized)( this gets the note for a particular question if you wrote it)(done)
+13) problem questionList: this is similar, to the panelQuestionList(I may not need this, check later if i need this, may not most probably)
+14) languageList: this gets all the language, alson with their id(imp)(done)
+15) submission details, this is similar to the thing, this gets code(done)
+16) userQuestionstatus: (a) tells if a questions is completed or not(and other shit)(done)
+17) user session progress(authenticated) gives the pichart thing, with other information(done)
 18) singleQuestionTopciTags: gives the tags of a question
-19) recentAcSubmissions(a) gets the recent acs, of a person, based on what the users can see
+19) recentAcSubmissions(a) gets the recent acs, of a person, based on what the users can see(done)
 
 
 so presently are the base, endpoints, based on these, ill be adding more features, for some processing to these endpoints, 
