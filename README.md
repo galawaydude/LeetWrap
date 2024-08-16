@@ -1,4 +1,4 @@
-# LeetCode API Wrapper
+# LeetWrap
 
 ## Description
 
@@ -90,12 +90,12 @@ Here are some of the main endpoints provided by this API wrapper:
 
 ## Authentication
 
-Most endpoints require authentication using a LeetCode session cookie. Include the `leetcodeSession` in the request body for authenticated endpoints.
+Most endpoints require authentication using a LeetCode session cookie and a csrf token. Include the `leetcodeSession` in the request body for authenticated endpoints.
 
 Example:
 ```json
 {
   "titleSlug": "two-sum",
-  "leetcodeSession": "your_leetcode_session_cookie"
+  "leetcodeSession": "your_leetcode_session_cookie;your_csrf_token"
 }
 ```
