@@ -23,7 +23,7 @@ This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides 
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/leetcode-api-wrapper.git
+   git clone https://github.com/galawaydude/LeetApi.git
    cd leetcode-api-wrapper
    ```
 
@@ -32,11 +32,6 @@ This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides 
    pip install -r requirements.txt
    ```
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory and add the following:
-   ```
-   LEETCODE_API_URL=https://leetcode.com/graphql
-   ```
 
 ## Usage
 
@@ -104,15 +99,3 @@ Example:
   "leetcodeSession": "your_leetcode_session_cookie"
 }
 ```
-
-## Error Handling
-
-The API uses standard HTTP status codes for error responses. Check the response body for detailed error messages.
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
