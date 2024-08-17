@@ -29,8 +29,12 @@ This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides 
 
 2. Install dependencies:
    ```
-   pip install -r requirements.txt
+   pipenv install
    ```
+
+3. Activate the virtual environment:
+   ```
+   pipenv shell
 
 
 ## Usage
@@ -90,7 +94,7 @@ Here are some of the main endpoints provided by this API wrapper:
 
 ## Authentication
 
-Most endpoints require authentication using a LeetCode session cookie and a csrf token. Include the `leetcodeSession` in the request body for authenticated endpoints.
+Some endpoints require authentication using a LeetCode session cookie and a csrf token. Include the `leetcodeSession` in the request body for authenticated endpoints.
 
 Example:
 ```json
