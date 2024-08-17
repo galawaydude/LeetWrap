@@ -1,25 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from app.api.endpoints import language, question, stats, submission_list, recentAcs, QOTD, getStreakCounter, getQuestionHints, userFavorites, panelQuestionList, userSessionProgress, questionTags, questionNote, questionStatus, thisGetsCode
+from app.api.endpoints import questionEndpoints, userEndpoints, submissionEndpoints, miscEndpoints
 
 app = FastAPI(
     title="LeetCode API Wrapper",
     description="A FastAPI wrapper for LeetCode's GraphQL API",
 )
-
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-
-app = FastAPI()
-
-
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-
-app = FastAPI()
-
-
-
 
 @app.get("/", response_class=HTMLResponse)
 def rootMessage():
@@ -77,20 +63,7 @@ def rootMessage():
     """
     return HTMLResponse(content=html_content)
 
-
-
-app.include_router(question.router, prefix="/api", tags=["questions"])
-app.include_router(stats.router, prefix="/api", tags=["stats"])
-app.include_router(submission_list.router, prefix="/api", tags=["submissions"])
-app.include_router(language.router, prefix="/api", tags=["languages"])
-app.include_router(recentAcs.router, prefix="/api", tags=["recentAcList"])
-app.include_router(QOTD.router, prefix="/api", tags=['QOTD'])
-app.include_router(getStreakCounter.router, prefix="/api", tags=["getStreak"])
-app.include_router(getQuestionHints.router, prefix="/api", tags=["QuestionHints"])
-app.include_router(userFavorites.router, prefix="/api", tags=["Userfavorites"])
-app.include_router(panelQuestionList.router, prefix="/api", tags=["PanelQuestionList"])
-app.include_router(userSessionProgress.router, prefix="/api", tags=["UserSessionProgress"])
-app.include_router(questionTags.router, prefix="/api", tags=["questionTags"])
-app.include_router(questionNote.router, prefix="/api", tags=["questionNote"])
-app.include_router(questionStatus.router, prefix="/api", tags=["questionStatus"])
-app.include_router(thisGetsCode.router, prefix="/api", tags=["thisGetsTheCode"])
+app.include_router(questionEndpoints.router, prefix="/api", tags=["questions"])
+app.include_router(userEndpoints.router, prefix="/api", tags=["users"])
+app.include_router(submissionEndpoints.router, prefix="/api", tags=["submissions"])
+app.include_router(miscEndpoints.router, prefix="/api", tags=["miscellaneous"])

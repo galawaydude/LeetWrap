@@ -23,8 +23,8 @@ This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides 
 
 1. Clone the repository:
    ```
-   git clone https://github.com/galawaydude/LeetApi.git
-   cd leetcode-api-wrapper
+   git clone https://github.com/galawaydude/LeetWrap.git
+   cd LeetWrap
    ```
 
 2. Install dependencies:
