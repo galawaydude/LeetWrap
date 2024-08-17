@@ -1,8 +1,9 @@
 from fastapi import APIRouter, HTTPException
 from app.core.graphqlClient import executeQuery
-from app.schemas.submission_list import SubmissionListRequest, SubmissionListResponse
-from app.schemas.thisGetsCode import SubmissionDetailsRequest, SubmissionDetailsResponse
-
+from app.schemas.submissionSchemas import (
+    SubmissionListRequest, SubmissionListResponse,
+    SubmissionDetailsRequest, SubmissionDetailsResponse
+)
 router = APIRouter()
 
 SUBMISSION_LIST_QUERY = """

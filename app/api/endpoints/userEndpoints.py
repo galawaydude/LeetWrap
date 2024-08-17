@@ -1,10 +1,12 @@
 from fastapi import APIRouter, HTTPException
 from app.core.graphqlClient import executeQuery
-from app.schemas.userFavorites import UserFavoritesRequest, UserFavoritesResponse
-from app.schemas.userSessionProgress import UserSessionProgressRequest, UserSessionProgressResponse
-from app.schemas.getStreakCounter import StreakCounterRequest, StreakCounterResponse
-from app.schemas.recentAcs import recentAcResponse, recentAcRequest
-from app.schemas.userPublicProfile import UserPublicProfileRequest, UserPublicProfileResponse
+from app.schemas.userSchemas import (
+    UserFavoritesRequest, UserFavoritesResponse,
+    UserSessionProgressRequest, UserSessionProgressResponse,
+    StreakCounterRequest, StreakCounterResponse,
+    RecentAcResponse, RecentAcRequest,
+    UserPublicProfileRequest, UserPublicProfileResponse
+)
 
 router = APIRouter()
 
@@ -155,8 +157,8 @@ async def get_streak_counter(request: StreakCounterRequest):
     
     return StreakCounterResponse(**result["data"])
 
-@router.post("/recent-ac", response_model=recentAcResponse)
-async def get_recent_ac(request: recentAcRequest):
+@router.post("/recent-ac", response_model=RecentAcResponse)
+async def get_recent_ac(request: RecentAcRequest):
     variables = {
         "username": request.username, 
         "limit": request.limit
@@ -174,7 +176,8 @@ async def get_recent_ac(request: recentAcRequest):
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
     payload = result["data"]
-    return recentAcResponse(**payload)
+    return RecentAcResponse(**payload)
+
 
 @router.post("/user-public-profile", response_model=UserPublicProfileResponse)
 async def get_user_public_profile(request: UserPublicProfileRequest):

@@ -87,3 +87,32 @@ class PanelQuestionListResponse(BaseModel):
 
 class PanelQuestionListRequest(BaseModel):
     leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
+
+    
+class QuestionStatsRequest(BaseModel):
+    titleSlug: str
+    leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
+
+class QuestionStatsResponse(BaseModel):
+    stats: str
+
+class QuestionHintsRequest(BaseModel):
+    titleSlug: str
+    leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
+
+class QuestionHintsResponse(BaseModel):
+    hints: List[str]
+
+class SingleQuestionTopicTagsRequest(BaseModel):
+    titleSlug: str
+    leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
+
+class SingleQuestionTopicTagsResponse(BaseModel):
+    topicTags: List[TopicTag]
+
+class QuestionNoteRequest(BaseModel):
+    titleSlug: str
+    leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
+
+class QuestionNoteResponse(BaseModel):
+    note: Optional[str]

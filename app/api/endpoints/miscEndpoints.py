@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from app.core.graphqlClient import executeQuery
-from app.schemas.QOTD import QuestionOfTodayResponse
-from app.schemas.getStreakCounter import StreakCounterRequest, StreakCounterResponse
-from app.schemas.language import LanguageListResponse
+from app.schemas.questionSchemas import QuestionOfTodayResponse
+from app.schemas.userSchemas import StreakCounterRequest, StreakCounterResponse
+from app.schemas.userSchemas import LanguageListResponse
 
 router = APIRouter()
 

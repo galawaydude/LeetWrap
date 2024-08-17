@@ -106,3 +106,11 @@ class RecentAcRequest(BaseModel):
     username: str
     limit: int
     leetcodeSession: str = Field(..., description="This is the leetcode cookie, that i will be using for the authentication")
+
+class Language(BaseModel):
+    id: str
+    name: str
+    verboseName: str
+
+class LanguageListResponse(BaseModel):
+    languageList: List[Language]

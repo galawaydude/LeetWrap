@@ -49,7 +49,7 @@ This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides 
 
 ## API Endpoints
 
-Here are some of the main endpoints provided by this API wrapper:
+Here are the endpoints provided by this API wrapper:
 
 ### Question Details
 

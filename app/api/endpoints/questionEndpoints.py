@@ -1,11 +1,13 @@
 from fastapi import APIRouter, HTTPException
 from app.core.graphqlClient import executeQuery
-from app.schemas.question import QuestionRequest, QuestionResponse, SimilarQuestionsResponse
-from app.schemas.questionStats import QuestionStatsRequest, QuestionStatsResponse
-from app.schemas.getQuestionHints import QuestionHintsRequest, QuestionHintsResponse
-from app.schemas.questionTags import SingleQuestionTopicTagsRequest, SingleQuestionTopicTagsResponse
-from app.schemas.questionNote import QuestionNoteRequest, QuestionNoteResponse
-from app.schemas.questionStatus import UserQuestionStatusRequest, UserQuestionStatusResponse
+from app.schemas.questionSchemas import (
+    QuestionRequest, QuestionResponse, SimilarQuestionsResponse,
+    QuestionStatsRequest, QuestionStatsResponse,
+    QuestionHintsRequest, QuestionHintsResponse,
+    SingleQuestionTopicTagsRequest, SingleQuestionTopicTagsResponse,
+    QuestionNoteRequest, QuestionNoteResponse,
+    UserQuestionStatusRequest, UserQuestionStatusResponse
+)
 
 router = APIRouter()
 
