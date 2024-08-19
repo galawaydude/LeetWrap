@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 from app.api.endpoints import questionEndpoints, userEndpoints, submissionEndpoints, miscEndpoints
 
 app = FastAPI(
-    title="LeetCode API Wrapper",
+    title="LeetWrap",
     description="A FastAPI wrapper for LeetCode's GraphQL API",
 )
 
@@ -15,48 +15,88 @@ def rootMessage():
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First FastAPI Project</title>
+    <title>LeetWrap</title>
     <style>
         body {
             background-color: #000;
-            color: #0f0;
+            color: #fff;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
-        }
-        .container {
-            border: 2px solid #0f0;
             padding: 20px;
-            max-width: 80%;
+            box-sizing: border-box;
         }
-        .prompt {
-            font-size: 1em;
-            display: inline-block;
+        .content {
+            max-width: 800px;
+            width: 100%;
+        }
+        h1, h2 {
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
             overflow: hidden;
             white-space: nowrap;
-            margin: 0;
-            letter-spacing: .1em;
-            border-right: .15em solid #0f0;
-            animation: 
-                typing 3s steps(40, end),
-                blink-caret .75s step-end infinite;
+            opacity: 0;
+            animation: typing 1s steps(40, end) forwards, blink-caret 1s step-end infinite;
         }
+        li:nth-child(1) { animation-delay: 0s; }
+        li:nth-child(2) { animation-delay: 0s; }
+        li:nth-child(3) { animation-delay: 0s; }
+        li:nth-child(4) { animation-delay: 0s; }
+        li:nth-child(5) { animation-delay: 0s; }
+        li:nth-child(6) { animation-delay: 0s; }
+        li:nth-child(7) { animation-delay: 0s; }
+        li:nth-child(8) { animation-delay: 0s; }
+        li:nth-child(9) { animation-delay: 0s; }
+        li:nth-child(10) { animation-delay: 0s; }
+        li:nth-child(11) { animation-delay: 0s; }
+        li:nth-child(12) { animation-delay: 0s; }
         @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
+            from { width: 0; opacity: 1; }
+            to { width: 100%; opacity: 1; }
         }
         @keyframes blink-caret {
-            from, to { border-color: transparent }
+            from, to { border-color: transparent; }
             50% { border-color: #0f0; }
+        }
+        a {
+            color: #0f0;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <p class="prompt">Oi, let's go, my first, from scratch project</p>
+    <div class="content">
+        <h1>LeetWrap</h1>
+        <p>This is an API that provides access to LeetCode information.</p>
+        <h2>Available Information:</h2>
+        <ul>
+            <li>Daily coding challenge questions</li>
+            <li>User's favorite questions</li>
+            <li>User's session progress</li>
+            <li>User's streak information</li>
+            <li>User's recent accepted submissions</li>
+            <li>User's public profile information</li>
+            <li>Detailed question information</li>
+            <li>Similar questions</li>
+            <li>Question statistics</li>
+            <li>Submission details</li>
+            <li>Question hints and notes</li>
+            <li>User's question status</li>
+        </ul>
+        <p>For detailed API documentation and usage instructions, visit <a href="/docs">/docs</a>.</p>
+        <p>More information to come soon</p>
     </div>
 </body>
 </html>
