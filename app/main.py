@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.endpoints import questionEndpoints, userEndpoints, submissionEndpoints, miscEndpoints
 
 app = FastAPI(
@@ -7,6 +8,13 @@ app = FastAPI(
     description="A FastAPI wrapper for LeetCode's GraphQL API",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 @app.get("/", response_class=HTMLResponse)
 def rootMessage():
     html_content = """
