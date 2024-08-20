@@ -107,8 +107,8 @@ def rootMessage():
                 <li>Question hints and notes</li>
                 <li>User's question status</li>
             </ul>
-            <p>For detailed API documentation and usage instructions, visit <a href="/docs">/docs</a>.</p>
-            <p>More information to come soon</p>
+            <p>Swagger UI Documentation, <a href="/docs">/docs</a>.</p>
+            <p>More may come</p>
         </div>
     </body>
     </html>
