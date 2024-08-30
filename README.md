@@ -26,12 +26,12 @@ Use it for extensions, or any applications you are working on.
 
 1. Pull the Docker image from Docker Hub:
    ```
-   docker pull galawaydude/leetwrap:latest
+   docker pull galawaydude/leetwrap
    ```
 
 2. Run the container:
    ```
-   docker run -d -p 8000:8000 galawaydude/leetwrap:latest
+   docker run -d -p 8000:8000 galawaydude/leetwrap
    ```
 
 3. Access the API documentation:
