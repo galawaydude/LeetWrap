@@ -2,16 +2,17 @@
 
 ## Description
 
-This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides a set of endpoints that allow users to interact with various LeetCode features, including fetching question details, user stats, submission lists, and more.
+Leetwrap is an api for leetcode, I built this using the fastapi framework. You can use this API for getting most of the information you may need from leetcode.
+Use it for extensions, or any applications you are working on.
 
-## Features
+## Info you can get
 
 - Fetch question details
 - Retrieve user stats
 - Get submission lists
 - Access language information
 - Fetch recent accepted submissions
-- Get the Question of the Day (QOTD)
+- Get the Question of the Day
 - Retrieve streak information
 - Access question hints
 - Manage user favorites
@@ -19,7 +20,26 @@ This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides 
 - Track user session progress
 - Manage question tags, notes, and status
 
-## Installation
+## Installation and Usage
+
+### Using Docker
+
+1. Pull the Docker image from Docker Hub:
+   ```
+   docker pull your-username/leetwrap:latest
+   ```
+
+2. Run the container:
+   ```
+   docker run -d -p 8000:8000 your-username/leetwrap:latest
+   ```
+
+3. Access the API documentation:
+   Open your browser and go to `http://localhost:8000/docs` to see the Swagger UI with all available endpoints.
+
+### Manual Installation
+
+If you prefer to run the application without Docker:
 
 1. Clone the repository:
    ```
@@ -29,77 +49,30 @@ This project is a FastAPI-based wrapper for LeetCode's GraphQL API. It provides 
 
 2. Install dependencies:
    ```
-   pipenv install
+   pip install -r requirements.txt
    ```
 
-3. Activate the virtual environment:
+3. Start the server:
    ```
-   pipenv shell
-
-
-## Usage
-
-1. Start the server:
-   ```
-   uvicorn app.main:app --reload
+   uvicorn app.main:app --host 0.0.0.0 --port 8000
    ```
 
-2. Access the API documentation:
+4. Access the API documentation:
    Open your browser and go to `http://localhost:8000/docs` to see the Swagger UI with all available endpoints.
 
-## API Endpoints
-
-Here are the endpoints provided by this API wrapper:
-
-### Question Details
-
-- `POST /api/question`: Get details of a specific question
-- `POST /api/similarQuestions`: Get similar questions for a given question
-
-### User Stats
-
-- `POST /api/stats`: Get question stats
-- `POST /api/user-session-progress`: Get user session progress
-
-### Submissions
-
-- `POST /api/submissionList`: Get submission list for a question
-- `POST /api/recentAc`: Get recent accepted submissions
-
-### Question of the Day
-
-- `GET /api/question-of-today`: Get the current Question of the Day
-
-### Streak Information
-
-- `POST /api/streak-counter`: Get user's streak information
-
-### Question Hints
-
-- `POST /api/question-hints`: Get hints for a specific question
-
-### User Favorites
-
-- `POST /api/user-favorites`: Get user's favorite questions
-
-### Panel Question List
-
-- `POST /api/panel-question-list`: Get panel question list
-
-### Question Tags, Notes, and Status
-
-- `POST /api/single-question-topic-tags`: Get topic tags for a question
-- `POST /api/question-note`: Get or set question notes
-- `POST /api/user-question-status`: Get question status for a user
 
 ## Authentication
 
-Some endpoints require authentication using a LeetCode session cookie and a csrf token. Include the `leetcodeSession` in the request body for authenticated endpoints.
-
+Some endpoints require authentication using a LeetCode session cookie and a csrf token. Include the `leetcodeSession` in the request body for these requests.
 Example:
-```json
+
+```
 {
-  "titleSlug": "two-sum",
-  "leetcodeSession": "your_leetcode_session_cookie;your_csrf_token"
+  "leetcodeSession": "your_leetcode_session_cookie",
+  "csrfToken": "your_csrf_token"
 }
 ```
+
+# note
+working on hosting this on azure, till then render should do the work. here is the link: https://leetwrap-3.onrender.com
+more endpoints may come.
