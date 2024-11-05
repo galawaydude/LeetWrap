@@ -1,16 +1,24 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 
+# Base Models
+class TopicTag(BaseModel):
+    name: str
+    id: str
+    slug: str
+
+# Question Status Models
 class QuestionStatus(BaseModel):
     status: Optional[str]
-
-class UserQuestionStatusResponse(BaseModel):
-    question: QuestionStatus
 
 class UserQuestionStatusRequest(BaseModel):
     titleSlug: str
     leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
 
+class UserQuestionStatusResponse(BaseModel):
+    question: QuestionStatus
+
+# Basic Question Models
 class QuestionRequest(BaseModel):
     titleSlug: str
 
@@ -25,6 +33,7 @@ class QuestionResponse(BaseModel):
     dislikes: int
     content: str
 
+# Similar Questions Models
 class SimilarQuestion(BaseModel):
     difficulty: str
     titleSlug: str
@@ -35,11 +44,7 @@ class SimilarQuestion(BaseModel):
 class SimilarQuestionsResponse(BaseModel):
     similarQuestionList: List[SimilarQuestion]
 
-class TopicTag(BaseModel):
-    name: str
-    id: str
-    slug: str
-
+# Daily Challenge Models
 class Question(BaseModel):
     acRate: float
     difficulty: str
@@ -63,6 +68,7 @@ class ActiveDailyCodingChallengeQuestion(BaseModel):
 class QuestionOfTodayResponse(BaseModel):
     activeDailyCodingChallengeQuestion: ActiveDailyCodingChallengeQuestion
 
+# Panel Question Models
 class PanelQuestion(BaseModel):
     difficulty: str
     id: int
@@ -82,13 +88,13 @@ class PanelQuestionList(BaseModel):
     totalLength: int
     questions: List[PanelQuestion]
 
-class PanelQuestionListResponse(BaseModel):
-    panelQuestionList: PanelQuestionList
-
 class PanelQuestionListRequest(BaseModel):
     leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
 
-    
+class PanelQuestionListResponse(BaseModel):
+    panelQuestionList: PanelQuestionList
+
+# Question Stats Models
 class QuestionStatsRequest(BaseModel):
     titleSlug: str
     leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
@@ -96,6 +102,7 @@ class QuestionStatsRequest(BaseModel):
 class QuestionStatsResponse(BaseModel):
     stats: str
 
+# Question Hints Models
 class QuestionHintsRequest(BaseModel):
     titleSlug: str
     leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
@@ -103,6 +110,7 @@ class QuestionHintsRequest(BaseModel):
 class QuestionHintsResponse(BaseModel):
     hints: List[str]
 
+# Topic Tags Models
 class SingleQuestionTopicTagsRequest(BaseModel):
     titleSlug: str
     leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
@@ -110,9 +118,46 @@ class SingleQuestionTopicTagsRequest(BaseModel):
 class SingleQuestionTopicTagsResponse(BaseModel):
     topicTags: List[TopicTag]
 
+# Question Note Models
 class QuestionNoteRequest(BaseModel):
     titleSlug: str
     leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
 
 class QuestionNoteResponse(BaseModel):
     note: Optional[str]
+
+# Problemset Question List Models
+class ProblemsetQuestionListFilters(BaseModel):
+    difficulty: Optional[str] = None
+    status: Optional[str] = None
+    tags: Optional[List[str]] = None
+    listId: Optional[str] = None
+    searchKeywords: Optional[str] = None
+
+class ProblemsetQuestionListRequest(BaseModel):
+    categorySlug: str = ""
+    limit: Optional[int] = 50
+    skip: int = 0
+    filters: Optional[ProblemsetQuestionListFilters] = Field(default_factory=ProblemsetQuestionListFilters)
+    leetcodeSession: str = Field(..., description="Full cookie string including LEETCODE_SESSION and csrftoken")
+
+class ProblemsetQuestion(BaseModel):
+    acRate: float
+    difficulty: str
+    freqBar: Optional[float]
+    frontendQuestionId: str
+    isFavor: bool
+    paidOnly: bool
+    status: Optional[str]
+    title: str
+    titleSlug: str
+    topicTags: List[TopicTag]
+    hasSolution: bool
+    hasVideoSolution: bool
+
+class ProblemsetQuestionList(BaseModel):
+    total: int
+    questions: List[ProblemsetQuestion]
+
+class ProblemsetQuestionListResponse(BaseModel):
+    problemsetQuestionList: ProblemsetQuestionList
