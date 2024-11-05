@@ -6,7 +6,9 @@ from app.schemas.questionSchemas import (
     QuestionHintsRequest, QuestionHintsResponse,
     SingleQuestionTopicTagsRequest, SingleQuestionTopicTagsResponse,
     QuestionNoteRequest, QuestionNoteResponse,
-    UserQuestionStatusRequest, UserQuestionStatusResponse
+    UserQuestionStatusRequest, UserQuestionStatusResponse,
+    ProblemsetQuestionListRequest, ProblemsetQuestionListResponse,
+    QuestionOfTodayResponse
 )
 
 router = APIRouter()
@@ -14,75 +16,134 @@ router = APIRouter()
 # Query strings
 QUESTION_QUERY = """
 query questionTitle($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    questionId
-    questionFrontendId
-    title
-    titleSlug
-    isPaidOnly
-    difficulty
-    likes
-    dislikes
-    content
-  }
+    question(titleSlug: $titleSlug) {
+        questionId
+        questionFrontendId
+        title
+        titleSlug
+        isPaidOnly
+        difficulty
+        likes
+        dislikes
+        content
+    }
 }
 """
 
 SIMILAR_QUESTIONS_QUERY = """
 query SimilarQuestions($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    similarQuestionList {
-      difficulty
-      titleSlug
-      title
-      translatedTitle
-      isPaidOnly
+    question(titleSlug: $titleSlug) {
+        similarQuestionList {
+            difficulty
+            titleSlug
+            title
+            translatedTitle
+            isPaidOnly
+        }
     }
-  }
 }
 """
 
 QUESTION_STATS_QUERY = """
 query questionStats($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    stats
-  }
+    question(titleSlug: $titleSlug) {
+        stats
+    }
 }
 """
 
 QUESTION_HINTS_QUERY = """
 query questionHints($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    hints
-  }
+    question(titleSlug: $titleSlug) {
+        hints
+    }
 }
 """
 
 SINGLE_QUESTION_TOPIC_TAGS_QUERY = """
 query singleQuestionTopicTags($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    topicTags {
-      name
-      slug
+    question(titleSlug: $titleSlug) {
+        topicTags {
+            name
+            slug
+        }
     }
-  }
 }
 """
 
 QUESTION_NOTE_QUERY = """
 query questionNote($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    questionId
-    note
-  }
+    question(titleSlug: $titleSlug) {
+        questionId
+        note
+    }
 }
 """
 
 USER_QUESTION_STATUS_QUERY = """
 query userQuestionStatus($titleSlug: String!) {
-  question(titleSlug: $titleSlug) {
-    status
-  }
+    question(titleSlug: $titleSlug) {
+        status
+    }
+}
+"""
+
+PROBLEMSET_QUESTION_LIST_QUERY = """
+query problemsetQuestionList($categorySlug: String, $limit: Int, $skip: Int, $filters: QuestionListFilterInput) {
+    problemsetQuestionList: questionList(
+        categorySlug: $categorySlug
+        limit: $limit
+        skip: $skip
+        filters: $filters
+    ) {
+        total: totalNum
+        questions: data {
+            acRate
+            difficulty
+            freqBar
+            frontendQuestionId: questionFrontendId
+            isFavor
+            paidOnly: isPaidOnly
+            status
+            title
+            titleSlug
+            topicTags {
+                name
+                id
+                slug
+            }
+            hasSolution
+            hasVideoSolution
+        }
+    }
+}
+"""
+
+QUESTION_OF_TODAY_QUERY = """
+query questionOfToday {
+    activeDailyCodingChallengeQuestion {
+        date
+        userStatus
+        link
+        question {
+            acRate
+            difficulty
+            freqBar
+            frontendQuestionId
+            isFavor
+            paidOnly
+            status
+            title
+            titleSlug
+            hasVideoSolution
+            hasSolution
+            topicTags {
+                name
+                id
+                slug
+            }
+        }
+    }
 }
 """
 
@@ -95,8 +156,7 @@ async def get_question(request: QuestionRequest):
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    questionData = result["data"]["question"]
-    return QuestionResponse(**questionData)
+    return QuestionResponse(**result["data"]["question"])
 
 @router.post("/similar-questions", response_model=SimilarQuestionsResponse)
 async def get_similar_questions(request: QuestionRequest):
@@ -106,8 +166,7 @@ async def get_similar_questions(request: QuestionRequest):
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    payload = result["data"]["question"]
-    return SimilarQuestionsResponse(**payload)
+    return SimilarQuestionsResponse(**result["data"]["question"])
 
 @router.post("/question-stats", response_model=QuestionStatsResponse)
 async def get_question_stats(request: QuestionStatsRequest):
@@ -117,7 +176,7 @@ async def get_question_stats(request: QuestionStatsRequest):
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    return QuestionStatsResponse(**result["data"])
+    return QuestionStatsResponse(**result["data"]["question"])
 
 @router.post("/question-hints", response_model=QuestionHintsResponse)
 async def get_question_hints(request: QuestionHintsRequest):
@@ -127,7 +186,7 @@ async def get_question_hints(request: QuestionHintsRequest):
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    return QuestionHintsResponse(**result["data"])
+    return QuestionHintsResponse(**result["data"]["question"])
 
 @router.post("/question-topic-tags", response_model=SingleQuestionTopicTagsResponse)
 async def get_question_topic_tags(request: SingleQuestionTopicTagsRequest):
@@ -137,7 +196,7 @@ async def get_question_topic_tags(request: SingleQuestionTopicTagsRequest):
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    return SingleQuestionTopicTagsResponse(**result["data"])
+    return SingleQuestionTopicTagsResponse(**result["data"]["question"])
 
 @router.post("/question-note", response_model=QuestionNoteResponse)
 async def get_question_note(request: QuestionNoteRequest):
@@ -153,7 +212,7 @@ async def get_question_note(request: QuestionNoteRequest):
     if "errors" in result:
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
-    return QuestionNoteResponse(**result["data"])
+    return QuestionNoteResponse(**result["data"]["question"])
 
 @router.post("/question-status", response_model=UserQuestionStatusResponse)
 async def get_question_status(request: UserQuestionStatusRequest):
@@ -170,3 +229,34 @@ async def get_question_status(request: UserQuestionStatusRequest):
         raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
     
     return UserQuestionStatusResponse(**result["data"])
+
+@router.post("/problemset-question-list", response_model=ProblemsetQuestionListResponse)
+async def get_problemset_question_list(request: ProblemsetQuestionListRequest):
+    headers = {
+        "Cookie": request.leetcodeSession,
+        "Referer": "https://leetcode.com/",
+        "X-Requested-With": "XMLHttpRequest"
+    }
+    
+    variables = {
+        "categorySlug": request.categorySlug,
+        "limit": request.limit,
+        "skip": request.skip,
+        "filters": request.filters.dict(exclude_none=True)
+    }
+    
+    result = await executeQuery(PROBLEMSET_QUESTION_LIST_QUERY, variables, customHeaders=headers)
+    
+    if "errors" in result:
+        raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
+    
+    return ProblemsetQuestionListResponse(**result["data"])
+
+@router.get("/question-of-today", response_model=QuestionOfTodayResponse)
+async def get_question_of_today():
+    result = await executeQuery(QUESTION_OF_TODAY_QUERY)
+    
+    if "errors" in result:
+        raise HTTPException(status_code=400, detail=result["errors"][0]["message"])
+    
+    return QuestionOfTodayResponse(**result["data"])
