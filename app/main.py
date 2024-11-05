@@ -7,20 +7,25 @@ import os
 app = FastAPI(
     title="LeetWrap",
     description="A FastAPI wrapper for LeetCode's GraphQL API",
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
+# CORS middleware configuration
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
-    allow_methods=["*"], 
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
-
+# Get port from environment variable or use default
 port = int(os.getenv("PORT", 8000))
 
 @app.get("/", response_class=HTMLResponse)
-def rootMessage():
+def root_message():
     html_content = """
     <!DOCTYPE html>
     <html lang="en">
@@ -59,18 +64,6 @@ def rootMessage():
                 opacity: 0;
                 animation: typing 1s steps(40, end) forwards, blink-caret 1s step-end infinite;
             }
-            li:nth-child(1) { animation-delay: 0s; }
-            li:nth-child(2) { animation-delay: 0s; }
-            li:nth-child(3) { animation-delay: 0s; }
-            li:nth-child(4) { animation-delay: 0s; }
-            li:nth-child(5) { animation-delay: 0s; }
-            li:nth-child(6) { animation-delay: 0s; }
-            li:nth-child(7) { animation-delay: 0s; }
-            li:nth-child(8) { animation-delay: 0s; }
-            li:nth-child(9) { animation-delay: 0s; }
-            li:nth-child(10) { animation-delay: 0s; }
-            li:nth-child(11) { animation-delay: 0s; }
-            li:nth-child(12) { animation-delay: 0s; }
             @keyframes typing {
                 from { width: 0; opacity: 1; }
                 to { width: 100%; opacity: 1; }
@@ -91,35 +84,61 @@ def rootMessage():
     <body>
         <div class="content">
             <h1>LeetWrap</h1>
-            <p>This is an API that provides access to LeetCode information.</p>
-            <h2>Available Information:</h2>
+            <h2>API Features:</h2>
             <ul>
-                <li>Daily coding challenge questions</li>
-                <li>User's favorite questions</li>
-                <li>User's session progress</li>
-                <li>User's streak information</li>
-                <li>User's recent accepted submissions</li>
-                <li>User's public profile information</li>
-                <li>Detailed question information</li>
-                <li>Similar questions</li>
-                <li>Question statistics</li>
-                <li>Submission details</li>
-                <li>Question hints and notes</li>
-                <li>User's question status</li>
+                <li>Question Information</li>
+                <li>Similar Questions</li>
+                <li>Question Statistics</li>
+                <li>Question Hints</li>
+                <li>Topic Tags</li>
+                <li>Question Notes</li>
+                <li>Question Status</li>
+                <li>Problem Set Lists</li>
+                <li>Daily Coding Challenge</li>
+                <li>User Submissions</li>
+                <li>User Profile Data</li>
             </ul>
-            <p>Swagger UI Documentation, <a href="/docs">/docs</a>.</p>
-            <p>More may come</p>
+            <p style="text-align: center;">
+                <a href="/docs">API Documentation</a> | 
+                <a href="/redoc">ReDoc Documentation</a>
+            </p>
         </div>
     </body>
     </html>
     """
     return HTMLResponse(content=html_content)
 
-app.include_router(questionEndpoints.router, prefix="/api", tags=["questions"])
-app.include_router(userEndpoints.router, prefix="/api", tags=["users"])
-app.include_router(submissionEndpoints.router, prefix="/api", tags=["submissions"])
-app.include_router(miscEndpoints.router, prefix="/api", tags=["miscellaneous"])
+# Include routers
+app.include_router(
+    questionEndpoints.router,
+    prefix="/api",
+    tags=["questions"]
+)
+
+app.include_router(
+    userEndpoints.router,
+    prefix="/api",
+    tags=["users"]
+)
+
+app.include_router(
+    submissionEndpoints.router,
+    prefix="/api",
+    tags=["submissions"]
+)
+
+app.include_router(
+    miscEndpoints.router,
+    prefix="/api",
+    tags=["miscellaneous"]
+)
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=port)
+    uvicorn.run(
+        "main:app",
+        host="0.0.0.0",
+        port=port,
+        reload=True,
+        workers=4
+    )
